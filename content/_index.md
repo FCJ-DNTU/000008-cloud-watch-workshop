@@ -22,4 +22,4 @@ chapter: false
 4. [CloudWatch Logs](4-cloud-watch-logs)
 5. [CloudWatch Alarm](5-cloud-watch-alarm)
 6. [CloudWatch Dashboard](6-cloud-watch-dashboard)
-7. [Resource Cleanup](7-clean-up-resources)
+7. [Cleanup resources](7-clean-up-resources)
