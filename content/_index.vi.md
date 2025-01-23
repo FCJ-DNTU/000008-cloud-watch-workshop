@@ -1,40 +1,25 @@
-+++
-title = "Thiết lập Tài Khoản AWS"
-date = 2021
-weight = 1
-chapter = false
-+++
+---
+title: "AWS CloudWatch Workshop"
+weight: 1
+chapter: false
+---
 
-# Tạo tài khoản AWS đầu tiên
+# AWS CloudWatch Workshop
+
+![architecture](/images/architecture.png)
 
 #### Tổng quan
-Trong bài lab đầu tiên này, bạn sẽ tạo mới **tài khoản AWS** đầu tiên của mình, tạo **MFA** (Multi-factor Authentication) để gia tăng bảo mật tài khoản của bạn. Bước tiếp theo bạn sẽ tạo **Admin Group**, **Admin User** để quản lý quyền truy cập vào các tài nguyên trong tài khoản của mình thay vì sử dụng user root.\
-Cuối cùng, nếu quá trình xác thực tài khoản của bạn có vấn đề, bạn sẽ được hướng dẫn hỗ trợ xác thực tài khoản với **AWS Support**.
 
-#### Tài khoản AWS (AWS Account)
-**Tài khoản AWS** là phương tiện để bạn có thể truy cập và sử dụng những tài nguyên và dịch vụ của AWS. Theo mặc định, mỗi tài khoản AWS sẽ có một *root user*. *Root user* có toàn quyền với tài khoản AWS của bạn, và quyền hạn của root user không thể bị giới hạn. Nếu bạn mới sử dụng tài khoản AWS lần đầu tiên, bạn sẽ truy cập vào tài khoản dưới danh nghĩa của *root user*.
+**Amazon CloudWatch** là dịch vụ theo dõi và quản lý cung cấp dữ liệu và thông tin định hướng hành động cho tài nguyên cơ sở hạ tầng và ứng dụng AWS, ứng dụng lai cũng như ứng dụng tại chỗ. Bạn có thể thu thập và tiếp cận tất cả dữ liệu về hiệu năng và hoạt động dưới hình thức nhật ký và số liệu trong cùng một nền tảng, thay vì theo dõi trong các silo (máy chủ, mạng hoặc cơ sở dữ liệu). **CloudWatch** cho phép bạn theo dõi toàn diện (ứng dụng, cơ sở hạ tầng và dịch vụ) và tận dụng cảnh báo, nhật ký và dữ liệu sự kiện để tự động hành động và giảm thời gian xử lý trung bình (MTTR). Dịch vụ này giúp bạn giải phóng tài nguyên quan trọng và tập trung vào việc xây dựng các ứng dụng và giá trị doanh nghiệp.
 
-{{% notice note %}}
-Chính vì quyền hạn của **root user** không thể bị giới hạn, AWS khuyên bạn không nên sử dụng trực tiếp *root user* cho bất kỳ công tác nào. Thay vào đó, bạn nên tạo ra một *IAM User* và trao quyền quản trị cho *IAM User* đó để dễ dàng quản lý và giảm thiểu rủi ro.
-{{% /notice %}}
+**CloudWatch** cung cấp thông tin định hướng hành động, hỗ trợ việc tối ưu hóa hiệu năng ứng dụng, quản lý sử dụng tài nguyên và hiểu rõ tình trạng hoạt động của toàn hệ thống. **CloudWatch** hiển thị dữ liệu số liệu và nhật ký chi tiết đến từng giây, duy trì dữ liệu trong 15 tháng (số liệu) và cho phép tính toán trên số liệu. Dịch vụ này cũng giúp bạn phân tích dựa trên dữ liệu cũ nhằm tối ưu hóa chi phí và thu thập thông tin trong thời gian thực góp phần tối ưu hóa ứng dụng và tài nguyên cơ sở hạ tầng. Bạn có thể sử dụng **CloudWatch** Container Insights để theo dõi, khắc phục sự cố và cảnh báo ứng dụng và vi dịch vụ có trong bộ chứa của bạn. **CloudWatch** thu thập, tổng hợp và tóm tắt thông tin sử dụng điện toán (như CPU, bộ nhớ, ổ đĩa và dữ liệu mạng) cũng như thông tin chẩn đoán (như lỗi khi khởi động lại bộ chứa) nhằm giúp kỹ sư DevOps cô lập và giải quyết sự cố một cách nhanh chóng. Container Insights cung cấp cho bạn thông tin chi tiết từ các dịch vụ quản lý bộ chứa như **Amazon ECS for Kubernetes** (EKS), **Amazon Elastic Container Service** (ECS), **AWS Fargate** và Kubernetes (k8s) độc lập.
 
-#### MFA (Multi-factor Authentication)
-**MFA** là một tính năng được sử dụng để gia tăng bảo mật của tài khoản AWS. Nếu MFA được kích hoạt, bạn sẽ phải nhập mã OTP (One-time Password) mỗi lần bạn đăng nhập vào tài khoản AWS.
+#### Nội dung
 
-#### IAM Group 
-**IAM Group**  là một công cụ quản lý người dùng (*IAM User*) của AWS. Một IAM Group có thể chứa nhiều IAM User. Các IAM User ở trong một IAM Group đều hưởng chung quyền hạn mà IAM Group đó được gán cho.
-
-#### IAM User
-**IAM User** là một đơn vị người dùng của AWS. Khi bạn đăng nhập vào AWS, bạn sẽ phải đăng nhập dưới danh nghĩa của một IAM User. Nếu bạn mới đăng nhập vào AWS lần đầu tiên, bạn sẽ đăng nhập dưới danh nghĩa của *root user* (tạm dịch là người dùng gốc). Ngoài *root user* ra, bạn có thể tạo ra nhiều IAM User khác để cho phép người khác truy cập **dài hạn** vào tài nguyên AWS trong tài khoản AWS của bạn.
-
-
-#### AWS Support
-**AWS Support** là một đơn vị cung cấp các dịch vụ hỗ trợ khách hàng của AWS.
-
-
-#### Nội dung chính
-
-1. [Tạo tài khoản AWS](1-create-new-aws-account/)
-2. [Thiết lập MFA cho tài khoản AWS (Root)](2-mfa-setup-for-aws-user-(root)/)
-3. [Tài khoản và Nhóm Admin](3-create-admin-user-and-group/)
-4. [Hỗ trợ Xác thực Tài khoản](4-verify-new-account/)
+1. [Giới thiệu](1-introduction)
+2. [Các bước chuẩn bị](2-preparatory-steps)
+3. [CloudWatch Metric](3-cloud-watch-metric)
+4. [CloudWatch Logs](4-cloud-watch-logs)
+5. [CloudWatch Alarm](5-cloud-watch-alarm)
+6. [CloudWatch Dashboard](6-cloud-watch-dashboard)
+7. [Dọn dẹp tài nguyên](7-clean-up-resources)
