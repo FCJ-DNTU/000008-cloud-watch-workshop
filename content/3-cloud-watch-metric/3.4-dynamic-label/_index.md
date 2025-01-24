@@ -1,43 +1,63 @@
 ---
-title : "Dynamic Labels"
-date : "`r Sys.Date()`"
-weight : 4
-chapter : false
-pre : " <b> 3.4 </b> "
+title: "Dynamic Labels"
+weight: 4
+chapter: false
+pre: " <b> 3.4 </b> "
 ---
 
 #### Dynamic Labels
 
-1. Select **Add math expression**, then select **Start with empty expression**
+Until now, you may have noticed that the labels in the graph legend have never been updated. While you can manually edit them, doing so for multiple metrics is not ideal. In this section, we will explore how to automatically update labels without manual changes.
 
-![CloudWatch](/images/2/2.4/0001.png?featherlight=false&width=90pc)
+1. Clear the previous expressions.
 
-2. Do a search:
+![3.4.1](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.1.png)
 
-```
-SEARCH('exe="cloudwatch" MetricName="procstat_memory_rss"', 'Average', 300)
-```
+2. Remove all **Filters** and click **All** to return to the namespaces.
 
-![CloudWatch](/images/2/2.4/0002.png?featherlight=false&width=90pc)
+![3.4.2](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.2.png)
 
-3. Select **Add dynamic label**
+3. Navigate to the **CWAgent** namespace.
 
-- Then select **All Labels** and select **PROP('Dim.DimName')**
+![3.4.3](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.3.png)
 
-![CloudWatch](/images/2/2.4/0003.png?featherlight=false&width=90pc)
+4. Select the following dimensions: **ImageId, InstanceId, InstanceType, exe, process_name**.
 
-4. Result
+![3.4.4](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.4.png)
 
-![CloudWatch](/images/2/2.4/0004.png?featherlight=false&width=90pc)
+![3.4.5](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.5.png)
 
-5. Do the same for **PROP('MetricName')**
+5. In the search bar, enter the following:
 
-![CloudWatch](/images/2/2.4/0005.png?featherlight=false&width=90pc)
+   - `exe=cloudwatch`
+   - `MetricName=procstat_memory_rss` (specifying the exact metric name).
 
-6. Then update Label
+![3.4.6](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.6.png)
+
+6. Click **Graph search** to display the graph.
+
+![3.4.7](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.7.png)
+
+7. Switch to the **Graphed metrics** tab.
+
+   - Expand **Add dynamic label**.
+   - Expand **All labels**.
+   - Select **PROP('Dim.DimName')**.
+
+![3.4.8](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.8.png)
+
+You will see that the graph labels have been updated.
+
+![3.4.9](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.9.png)
+
+8. Modify the label expression as follows:
 
 ```
 ${PROP('Dim.exe')} - ${PROP('Dim.InstanceId')} - ${PROP('MetricName')}
 ```
 
-![CloudWatch](/images/2/2.4/0006.png?featherlight=false&width=90pc)
+![3.4.10](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.10.png)
+
+The labels are now displayed in the updated format.
+
+![3.4.11](/images/3-cloud-watch-metric/3.4-dynamic-label/3.4.11.png)

@@ -1,55 +1,41 @@
 ---
-title : "Math expressions"
-date : "`r Sys.Date()`"
-weight : 3
-chapter : false
-pre : " <b> 3.3 </b> "
+title: "Math expressions"
+weight: 3
+chapter: false
+pre: " <b> 3.3 </b> "
 ---
 
-#### Math expressions
+#### Mathematical Expressions
 
-1. Continuing the previous step, we still access the **CloudWatch** interface
+Continuing, in this section, we will perform basic mathematical expressions.
 
-![CloudWatch](/images/2/2.3/0001.png?featherlight=false&width=90pc)
+1. First, clear the previous search expression.
 
-2. Select **Graphed metrics**
+![3.3.1](/images/3-cloud-watch-metric/3.3-math-expression/3.3.1.png)
 
-   - Select **Add math expression**
+2. Go back to the **Browse** tab.
 
-![CloudWatch](/images/2/2.3/0002.png?featherlight=false&width=90pc)
+   - Click **Graph search** to restore the graph from the previous step.
 
-3. Select **Filter**
+![3.3.2](/images/3-cloud-watch-metric/3.3-math-expression/3.3.2.png)
 
+3. Next, open the **Add math** section in the upper-right corner, below the graph.
 
-![CloudWatch](/images/2/2.3/0003.png?featherlight=false&width=90pc)
+   - Expand **Filter**.
+   - Select **Top 10 by sum**.
 
-4. Then select **Top 10 by Sum**. See details:
+![3.3.3](/images/3-cloud-watch-metric/3.3-math-expression/3.3.3.png)
+
+![3.3.4](/images/3-cloud-watch-metric/3.3-math-expression/3.3.4.png)
+
+4. Now, we will reorder the graph based on the first search expression using the expression below.
+
 ```
-SORT(e1, SUM, DESC, 3)
+SORT(e1, SUM, DEC, 3)
 ```
 
-![CloudWatch](/images/2/2.3/0004.png?featherlight=false&width=90pc)
+![3.3.5](/images/3-cloud-watch-metric/3.3-math-expression/3.3.5.png)
 
-5. Return to **All metrics** interface
+![3.3.6](/images/3-cloud-watch-metric/3.3-math-expression/3.3.6.png)
 
-   - Select **CWAgent namespace**
-
-![CloudWatch](/images/2/2.3/0005.png?featherlight=false&width=90pc)
-
-6. Select **ImageId, InstanceId, InstanceType, exe, process_name**
-
-![CloudWatch](/images/2/2.3/0006.png?featherlight=false&width=90pc)
-
-7. exe="cloudwatch" and MetricName="procstat_memory_rss"
-
-![CloudWatch](/images/2/2.3/0007.png?featherlight=false&width=90pc)
-
-8. Results
-
-![CloudWatch](/images/2/2.3/0008.png?featherlight=false&width=90pc)
-
-9. Do the same
-
-![CloudWatch](/images/2/2.3/0009.png?featherlight=false&width=90pc)
-
-![CloudWatch](/images/2/2.3/00010.png?featherlight=false&width=90pc)
+That's it! In this section, we kept it simple. Let's continue practicing in the next part.

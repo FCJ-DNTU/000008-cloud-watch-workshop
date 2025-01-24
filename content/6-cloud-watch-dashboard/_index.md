@@ -1,24 +1,43 @@
 ---
-title : "CloudWatch Dashboards"
-date : "`r Sys.Date()`"
-weight : 6
-chapter : false
-pre : " <b> 6. </b> "
+title: "CloudWatch Dashboards"
+weight: 6
+chapter: false
+pre: " <b> 6. </b> "
 ---
 
 #### CloudWatch Dashboards
 
-1. Select **All Alarms**
+This is the final part of this workshop, where we will create a simple Dashboard to manage the Metrics and Alarms we have created, specifically the Error Logs we created in the previous section.
 
-- Select **Actions**
-- Select **Add to dashboard**
+1. Add the alarm we just created to the Dashboard.
 
-![CloudWatch](/images/5/0001.png?featherlight=false&width=90pc)
+   - Select **PythonApplicationErrorAlarm**.
+   - Expand **Actions**.
+   - Select **Add to dashboard**.
 
-2. Select **Add to dashboard**
+![6.1](/images/6-cloud-watch-dashboard/6.1.png)
 
-![CloudWatch](/images/5/0002.png?featherlight=false&width=90pc)
+2. In the **Add to dashboard** dialog, select **Create new**.
 
-3. Make dashboard customizations.
+![6.2](/images/6-cloud-watch-dashboard/6.2.png)
 
-![CloudWatch](/images/5/0003.png?featherlight=false&width=90pc)
+3. Enter the name for the dashboard as `CloudWatch-Workshop`.
+
+   - Click **Create**.
+   - Click **Add to dashboard**.
+
+![6.3](/images/6-cloud-watch-dashboard/6.3.png)
+
+![6.4](/images/6-cloud-watch-dashboard/6.4.png)
+
+Here is our dashboard.
+
+![6.5](/images/6-cloud-watch-dashboard/6.5.png)
+
+You can perform several actions on this widget.
+
+![6.6](/images/6-cloud-watch-dashboard/6.6.png)
+
+![6.7](/images/6-cloud-watch-dashboard/6.7.png)
+
+If you've made it this far, congratulations on completing this workshop!

@@ -1,63 +1,89 @@
 ---
-title : "CloudWatch Alarms"
-date : "`r Sys.Date()`"
-weight : 5
-chapter : false
-pre : " <b> 5. </b> "
+title: "CloudWatch Alarms"
+weight: 5
+chapter: false
+pre: " <b> 5. </b> "
 ---
 
-1. Select **All Alarms**
+#### CloudWatch Alarms
 
-- Select **"Create Alarm"**
+In this section, we will set up an Alarm for the Error Log Metric that we created in the previous section.
 
-![CloudWatch](/images/4/0001.png?featherlight=false&width=90pc)
+1. Return to the main screen of CloudWatch.
 
-2. Select **Select Metric**
+   - Select **Alarms** from the left menu.
+   - Choose **All alarms**.
+   - Click **Create alarm**.
 
-![CloudWatch](/images/4/0002.png?featherlight=false&width=90pc)
+![5.1](/images/5-cloud-watch-alarm/5.1.png)
 
-3. We will see **"ec2-logs"**
+2. Select **Select metric**.
 
-![CloudWatch](/images/4/0003.png?featherlight=false&width=90pc)
+![5.2](/images/5-cloud-watch-alarm/5.2.png)
 
-4. **Metrics with no dimensions**
+The metrics window appears, under **Custom namespaces**, select **ec2-logs**.
 
-![CloudWatch](/images/4/0004.png?featherlight=false&width=90pc)
+![5.3](/images/5-cloud-watch-alarm/5.3.png)
 
-5. Select **/var/log/messages - ERROR**
+Next, select **Metrics with no dimensions**, choose **/var/log/messages**, and click **Select metric**.
 
-- Select **Select Metric**
+![5.4](/images/5-cloud-watch-alarm/5.4.png)
 
-![CloudWatch](/images/4/0005.png?featherlight=false&width=90pc)
+3. In the **Specify metric and conditions** section, set **Period** to **1 minute**.
 
-6. Select **1 minute** for **Period**
+![5.5](/images/5-cloud-watch-alarm/5.5.png)
 
-![CloudWatch](/images/4/0006.png?featherlight=false&width=90pc)
+4. In the **Conditions** section:
 
-7. Select **Greater > threshold** and set it to 10. Then select **Next**
+   - Threshold type: **Static**.
+   - Condition: **Greater** than **10**.
 
-![CloudWatch](/images/4/0007.png?featherlight=false&width=90pc)
+![5.6](/images/5-cloud-watch-alarm/5.6.png)
 
-8. Select **Create Topic** and enter your email to receive notifications.
+You will see a dashed line indicating that this is the threshold where the **Alarm** will be triggered => when there are too many errors, something unusual has happened in the application and needs to be checked immediately.
 
-![CloudWatch](/images/4/0008.png?featherlight=false&width=90pc)
+![5.7](/images/5-cloud-watch-alarm/5.7.png)
 
-9. Select **Next**
+Then click **Next** to continue.
 
-![CloudWatch](/images/4/0009.png?featherlight=false&width=90pc)
+5. Now, configure the notification as follows:
 
-10. Select **Create alarm**
+   - Alarm state trigger: **In alarm**.
+   - Choose **Create new topic**.
+   - Topic name: `Error_logs_reach_10`.
+   - Email to notify: enter your email, here I will enter mine.
+   - Click **Create topic**.
 
-![CloudWatch](/images/4/00010.png?featherlight=false&width=90pc)
+![5.8](/images/5-cloud-watch-alarm/5.8.png)
 
-11. Confirm mail
+![5.9](/images/5-cloud-watch-alarm/5.9.png)
 
-![CloudWatch](/images/4/00011.png?featherlight=false&width=90pc)
+Click **Next**.
 
-12. Results
+![5.10](/images/5-cloud-watch-alarm/5.10.png)
 
-![CloudWatch](/images/4/00012.png?featherlight=false&width=90pc)
+6. In the final step, enter the alarm name as `PythonApplicationErrorAlarm` and click **Next**.
 
-13. You have successfully created **Alarm**.
+![5.11](/images/5-cloud-watch-alarm/5.11.png)
 
-![CloudWatch](/images/4/00013.png?featherlight=false&width=90pc)
+7. Review the results and click **Create alarm**.
+
+![5.12](/images/5-cloud-watch-alarm/5.12.png)
+
+![5.13](/images/5-cloud-watch-alarm/5.13.png)
+
+Result:
+
+![5.14](/images/5-cloud-watch-alarm/5.14.png)
+
+8. Log in to Gmail or any email service you use. You will receive an email from **AWS Notification**.
+
+![5.15](/images/5-cloud-watch-alarm/5.15.png)
+
+Click **Confirm subscription**.
+
+![5.16](/images/5-cloud-watch-alarm/5.16.png)
+
+![5.17](/images/5-cloud-watch-alarm/5.17.png)
+
+Okay, now we have completed the alarm setup.

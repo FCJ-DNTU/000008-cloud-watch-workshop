@@ -1,53 +1,66 @@
 ---
-title : "CloudWatch Metric Filter"
-date : "`r Sys.Date()`"
-weight : 3
-chapter : false
-pre : " <b> 4.3 </b> "
+title: "CloudWatch Metric Filter"
+weight: 3
+chapter: false
+pre: " <b> 4.3 </b> "
 ---
 
 #### CloudWatch Metric Filter
 
-1. Return to **CloudWatch** interface
+1. Return to the main screen of **CloudWatch**
 
-- Select **Log groups**
-- Select **/ec2/linux/var/log/messages**
-- Select **Actions**
-- Select **Create metric filter**
+   - Select **Log groups**
+   - Search for `/ec2`.
+   - Select **/ec2/linux/var/log/messages**
 
-![CloudWatch](/images/3/3.3/0001.png?featherlight=false&width=90pc)
+![4.3.1](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.1.png)
 
-2. For **Filter pattern**, enter **ERROR**
+2. In the interface of **/ec2/linux/var/log/messages**
 
-![CloudWatch](/images/3/3.3/0002.png?featherlight=false&width=90pc)
+   - Click on **Actions**.
+   - Click **Create metric filter**.
 
-3. Select **Select log data to test** and select **Test pattern**
+![4.3.2](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.2.png)
 
-- You will see the following information:
+3. In the **Define Pattern** section, enter the following information:
 
-```
-[month, day, timestamp, host, appId="logger.runJob:", message="ERROR*"]
-```
+   - Filter pattern: select **ERROR** from the dropdown.
+   - Test pattern: select any instance, but it’s recommended to choose the instance where we created processes in the previous two steps.
 
-- Select **Next**
+![4.3.3](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.3.png)
 
-![CloudWatch](/images/3/3.3/0003.png?featherlight=false&width=90pc)
+4. Click **Test pattern** to check if the filter works properly.
 
-4. Name is **PythonAppErrors**
+![4.3.4](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.4.png)
 
-- Set **metric namespace** to **ec2-logs**
-- For **Metric name** is **/var/log/messages - ERROR**
-- For **Metric value** set to 1
-- Default is set to 0
-- For **Unit** choose **Count**
-- Select **Next**
+5. In the **Create filter name** section of **Assign metric**, enter `PythonAppErrors`.
 
-![CloudWatch](/images/3/3.3/0004.png?featherlight=false&width=90pc)
+![4.3.5](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.5.png)
 
-5. Review and select **Create metric filter**
+6. In the **Metric details** section, enter the following information:
 
-![CloudWatch](/images/3/3.3/0005.png?featherlight=false&width=90pc)
+   - Metric namespace: `ec2-logs`.
+   - Metric name: `/var/log/messages - ERROR`.
+   - Metric value: **1**.
+   - Default value: **0**.
+   - Unit: select **Count** from the dropdown.
+   - Click **Next**.
 
-![CloudWatch](/images/3/3.3/0006.png?featherlight=false&width=90pc)
+![4.3.6](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.6.png)
 
-![CloudWatch](/images/3/3.3/0007.png?featherlight=false&width=90pc)
+7. After reviewing, click **Create metric filter**.
+
+![4.3.7](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.7.png)
+
+![4.3.8](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.8.png)
+
+8. Go back to Metrics > All metrics.
+
+   - Search for the keywords `/var/log/messages` and `ERROR`.
+   - Select **ec2-logs > Metrics with no dimensions**.
+
+![4.3.9](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.9.png)
+
+![4.3.10](/images/4-cloud-watch-logs/4.3-metric-filter/4.3.10.png)
+
+Now we have a metric that retrieves ERROR logs from the application. In the next step, we will set up an alarm for this metric.

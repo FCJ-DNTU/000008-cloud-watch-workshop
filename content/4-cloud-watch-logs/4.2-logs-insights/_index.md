@@ -1,81 +1,84 @@
 ---
-title : "CloudWatch Logs Insights"
-date : "`r Sys.Date()`"
-weight : 2
-chapter : false
-pre : " <b> 4.2 </b> "
+title: "CloudWatch Logs Insights"
+date: "`r Sys.Date()`"
+weight: 2
+chapter: false
+pre: " <b> 4.2 </b> "
 ---
 
-#### CloudWatch Logs Insights
+### CloudWatch Logs Insights
 
-1. You access the **EC2** interface
+Trong phần này, chúng ta sẽ tạo log từ một ứng dụng và sau đó truy vấn các log này trong **CloudWatch Logs Insights**. Mình sẽ chọn một **EC2 instance** làm mẫu.
 
-- Select **Instances**
-- Select **/Instance-A/test-instance**
-- Then select **Connect**
+1. Trên thanh tìm kiếm dịch vụ:
 
-![CloudWatch](/images/3/3.2/0001.png?featherlight=false&width=90pc)
+   - Nhập `EC2`.
+   - Chọn **EC2**.
 
+![4.2.1](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.1.png)
 
-2. In the **Connect to instance** interface
+2. Trong **EC2 Console**, truy cập vào trang **Instances**:
 
-- Select **Session Manager**
-- Select **Connect**
+   - Chọn một instance bất kỳ (ở đây mình chọn `Instance-A`).
+   - Ấn chọn **Connect**.
 
-![CloudWatch](/images/3/3.2/0002.png?featherlight=false&width=90pc)
+![4.2.2](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.2.png)
 
-3. We will have a new interface on the browser
+3. Trong trang **Connect to instance**:
 
-![CloudWatch](/images/3/3.2/0003.png?featherlight=false&width=90pc)
+   - Chuyển sang tab **Session Manager**.
+   - Nhấn **Connect**.
 
-4. After accessing the **Session Manager** interface. You execute the following script:
+![4.2.3](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.3.png)
 
-```
+4. Đợi một lúc, một **Terminal** sẽ hiện lên:
+
+   - Di chuyển vào thư mục `/tmp`.
+   - Tải xuống script Python từ S3 bucket.
+
+```bash
 cd /tmp
 sudo aws s3 cp s3://workshop-template-bucket/logger.py .
 ```
 
-![CloudWatch](/images/3/3.2/0004.png?featherlight=false&width=90pc)
+![4.2.4](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.4.png)
 
-4. Continue granting permission by running the next script
+5. Cấp quyền thực thi và chạy script:
 
-```
+```bash
 sudo chmod +x logger.py
 python3 logger.py &
 ```
 
-![CloudWatch](/images/3/3.2/0005.png?featherlight=false&width=90pc)
+![4.2.5](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.5.png)
 
-5 . We check again with the following command:
+6. Kiểm tra các logger đang chạy dưới dạng process:
 
+```bash
+ps -aux | grep logger
 ```
- ps -aux | grep logger
-```
 
-![CloudWatch](/images/3/3.2/0006.png?featherlight=false&width=90pc)
+Hiện tại có 2 process đang chạy, chúng sẽ chạy cho đến khi kết thúc bài thực hành.
 
-6. View the log with the following command:
+![4.2.6](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.6.png)
 
-```
+7. In ra các dòng log từ file `/var/log/messages`, nó sẽ chạy liên tục cho đến khi bị hủy:
+
+```bash
 sudo tail -f /var/log/messages
 ```
 
-![CloudWatch](/images/3/3.2/0007.png?featherlight=false&width=90pc)
+![4.2.7](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.7.png)
 
-#### Find logs in CloudWatch Log Insights
+8. Trở lại **CloudWatch Console**, vào **Logs Insights** từ menu bên trái để truy vấn log.
 
-1. Access to **CloudWatch** interface
+![4.2.8](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.8.png)
 
-- Select **Logs Insights**
-- Select **Select log group(s)**
+9. Trong **Selection criteria**, tìm `/ec2` và chọn **/ec2/linux/var/log/messages**.
 
-![CloudWatch](/images/3/3.2/0008.png?featherlight=false&width=90pc)
+![4.2.9](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.9.png)
 
-2. Select **/ec2/linux/var/log/messages.**
-
-![CloudWatch](/images/3/3.2/0009.png?featherlight=false&width=90pc)
-
-3. Execute **Run query**
+10. Nhập câu truy vấn sau và nhấn **Run query**:
 
 ```
 fields @timestamp, @message
@@ -83,17 +86,15 @@ fields @timestamp, @message
 | limit 20
 ```
 
-![CloudWatch](/images/3/3.2/00010.png?featherlight=false&width=90pc)
+Kết quả hiển thị như sau:
 
-4. **Notice that we are querying the logs from the past one hour**, select **Custom**
+![4.2.10](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.10.png)
 
-![CloudWatch](/images/3/3.2/00011.png?featherlight=false&width=90pc)
+Đây chính là các log chúng ta vừa tạo.
 
-5. We will see the following log:
+![4.2.11](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.11.png)
 
-![CloudWatch](/images/3/3.2/00012.png?featherlight=false&width=90pc)
-
-6. Filter error logs
+11. Truy vấn log có chứa **ERROR**:
 
 ```
 fields @timestamp, @message
@@ -102,9 +103,13 @@ fields @timestamp, @message
 | limit 20
 ```
 
-![CloudWatch](/images/3/3.2/00013.png?featherlight=false&width=90pc)
+![4.2.12](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.12.png)
 
-7. View logs containing **WARN**
+Đây là các log lỗi mà chúng ta đã tạo.
+
+![4.2.13](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.13.png)
+
+12. Truy vấn log có chứa **WARN**:
 
 ```
 fields @timestamp, @message
@@ -113,49 +118,60 @@ fields @timestamp, @message
 | limit 20
 ```
 
-![CloudWatch](/images/3/3.2/00014.png?featherlight=false&width=90pc)
+![4.2.14](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.14.png)
 
-8. Then retry running the query **ERROR**
+13. Truy vấn lại log lỗi để xem log mới tạo:
 
-```
-fields @timestamp, @message
-| filter @message like /ERROR/
-| sort @timestamp desc
-| stats count (*) by @logStream
-```
+![4.2.15](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.15.png)
 
-![CloudWatch](/images/3/3.2/00015.png?featherlight=false&width=90pc)
-
-9. Continue query
+14. Truy vấn theo từ khóa khác (`eth0`):
 
 ```
 fields @timestamp, @message
 | filter @message like /eth0/
 | sort @timestamp desc
-| stats count (*) by bin(5m)
+| stats count (*) by bin()
 ```
 
-![CloudWatch](/images/3/3.2/00016.png?featherlight=false&width=90pc)
+![4.2.16](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.16.png)
 
-10. Then you see **Visualization**
+![4.2.17](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.17.png)
 
-![CloudWatch](/images/3/3.2/00017.png?featherlight=false&width=90pc)
+### Trực quan hóa truy vấn log
 
-11. Execute **Save** query
+Chúng ta có thể xem biểu đồ của các truy vấn bằng cách chuyển sang tab **Visualization**.
 
-```
-fields @timestamp, @message
-| filter @message like /ERROR/
-| sort @timestamp desc
-| limit 20
-```
+![4.2.18](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.18.png)
 
-![CloudWatch](/images/3/3.2/00018.png?featherlight=false&width=90pc)
+### Lưu lệnh truy vấn
 
-12. Save query successfully.
+Logs Insights hỗ trợ lưu truy vấn để sử dụng lại sau này.
 
-![CloudWatch](/images/3/3.2/00019.png?featherlight=false&width=90pc)
+1. Ví dụ, lưu truy vấn **ERROR logs**:
 
-13. View query history.
+   - Quay lại Logs Insights.
+   - Nhập lại truy vấn **ERROR logs**.
+   - Nhấn **Save**.
 
-![CloudWatch](/images/3/3.2/00020.png?featherlight=false&width=90pc)
+![4.2.19](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.19.png)
+
+2. Trong **Save a new query**, điền thông tin:
+
+   - **Query name**: `Errors`
+   - **Folder**: `cloudwatch-workshop` (chọn **Create new**)
+   - Kiểm tra lại thông tin trong **Query definition details**.
+   - Nhấn **Save**.
+
+![4.2.20](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.20.png)
+
+![4.2.21](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.21.png)
+
+### Lịch sử truy vấn
+
+Logs Insights cho phép xem lại lịch sử truy vấn. Trong giao diện, chọn **History** (dưới Query editor).
+
+![4.2.22](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.22.png)
+
+![4.2.23](/images/4-cloud-watch-logs/4.2-logs-insights/4.2.23.png)
+
+Trong phần tiếp theo, chúng ta sẽ tạo **Metrics Filter**, chuyển log thành **Metric**, và thiết lập **Alarm**.
