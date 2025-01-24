@@ -5,44 +5,54 @@ chapter: false
 pre: " <b> 2. </b> "
 ---
 
-#### Preparatory Steps
+#### Preparation Steps
 
-1. Go to **AWS Management Console**
+1. Access the **AWS Management Console**:
 
-   - Find **CloudFormation**
-   - Select **CloudFormation**
+   - Search for **CloudFormation**.
+   - Select **CloudFormation**.
 
-   ![CloudWatch](/images/1/0001.png?featherlight=false&width=90pc)
+![2.1](/images/2-preparatory-steops/2.1.png)
 
 2. In the **CloudFormation** interface:
 
-   - Select **Create stack**
-   - Select **With new resources**
+   - Select **Create stack**.
+   - Choose **With new resources (standard)**.
 
-   ![CloudWatch](/images/1/0002.png?featherlight=false&width=90pc)
+![2.2](/images/2-preparatory-steops/2.2.png)
 
-3. In the **Create stack** interface, download the configuration file [template](https://raw.githubusercontent.com/AWS-First-Cloud-Journey/CloudWatchWorkshop/main/template.yml)
+3. In the **Create stack** interface. First, download the [template](https://raw.githubusercontent.com/AWS-First-Cloud-Journey/CloudWatchWorkshop/main/template.yml) file, and then follow these steps:
 
-   - Select **Template is ready**
-   - Select **Upload a template file**
-   - Select **Choose file**
-   - Select **template.yml**
-   - Select **Next**
+   - In the **Prerequisite - Prepare template** section, choose **Choose an existing template**.
+   - Then, select **Upload a template file**.
+   - Click **Choose file** to upload the template file you just downloaded.
+   - Click **Next**.
 
-   ![CloudWatch](/images/1/0003.png?featherlight=false&width=90pc)
+![2.3](/images/2-preparatory-steops/2.3.png)
 
-4. Enter the stack name **`AwsWorkshopStack`** and select **Next**
+4. Next, fill in the following information:
 
-   ![CloudWatch](/images/1/0004.png?featherlight=false&width=90pc)
+   - Name: `FCJ-CloudWatch-Workshop` (or any name you prefer, but it’s a good idea to choose a memorable name).
+   - RegionId: select the region ID where you are performing the lab, for this lab, I chose **us-east-1** (N. Virginia).
+   - Leave the remaining parameters as is.
+   - Click **Next**.
 
-5. Select **Next**
+![2.4](/images/2-preparatory-steops/2.4.png)
 
-   ![CloudWatch](/images/1/0005.png?featherlight=false&width=90pc)
+5. On this page, no configuration is needed, so scroll down to the bottom, check **I acknowledge that AWS CloudFormation might create IAM resources with custom names**, and then click **Next**.
 
-6. Select **Create stack**
+![2.5](/images/2-preparatory-steops/2.5.png)
 
-   ![CloudWatch](/images/1/0006.png?featherlight=false&width=90pc)
+6. Verify everything once more, scroll to the bottom, and click **Submit** to create the stack.
 
-7. Wait for the CloudFormation stack creation to complete. Once successful, the infrastructure is ready.
+![2.6](/images/2-preparatory-steops/2.6.png)
 
-   ![CloudWatch](/images/1/0007.png?featherlight=false&width=90pc)
+7. A new stack will be created. Wait for about 5 minutes for the installation to complete.
+
+![2.7](/images/2-preparatory-steops/2.7.png)
+
+When the installation is finished, you should see the following result:
+
+![2.8](/images/2-preparatory-steops/2.8.png)
+
+The preparation step is now complete. In the following steps, we will proceed with hands-on practice in CloudWatch.
